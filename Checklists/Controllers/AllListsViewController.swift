@@ -18,8 +18,8 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
         
         navigationController?.delegate = self
         
-        let index = UserDefaults.standard.integer(forKey: "ChecklistIndex")
-        if index != -1 {
+        let index = dataModel.indexOfSelectedChecklist
+        if index != -1 && index < dataModel.lists.count {
             let checklist = dataModel.lists[index]
             performSegue(withIdentifier: "ShowChecklist", sender: checklist)
         }
@@ -38,14 +38,11 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        dataModel.indexOfSelectedChecklist = indexPath.row
         let checklist = dataModel.lists[indexPath.row]
         performSegue(
             withIdentifier: "ShowChecklist",
             sender: checklist)
-        
-        UserDefaults.standard.set(
-            indexPath.row,
-            forKey: "ChecklistIndex")
     }
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
@@ -76,10 +73,10 @@ class AllListsViewController: UITableViewController, ListDetailViewControllerDel
         navigationController?.pushViewController(controller, animated: true)
     }
     
-    // MARK: - Navigation Controller Delegates
+    // MARK: - Navigation Controller Delegates -
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         if viewController === self {
-            UserDefaults.standard.set(-1, forKey: "ChecklistIndex")
+            dataModel.indexOfSelectedChecklist = -1
         }
     }
     

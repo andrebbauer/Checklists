@@ -49,6 +49,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		6504C59827B4548A006D6D61 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				6566952F27A0D913009C5FCB /* Assets.xcassets */,
+				6566953127A0D913009C5FCB /* LaunchScreen.storyboard */,
+				6566952C27A0D90E009C5FCB /* Main.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		6566951A27A0D90E009C5FCB = {
 			isa = PBXGroup;
 			children = (
@@ -68,13 +78,11 @@
 		6566952527A0D90E009C5FCB /* Checklists */ = {
 			isa = PBXGroup;
 			children = (
+				6504C59827B4548A006D6D61 /* Resources */,
 				6566953B27A0E6CD009C5FCB /* Models */,
 				6566953A27A0E6C2009C5FCB /* Controllers */,
-				6566952C27A0D90E009C5FCB /* Main.storyboard */,
 				6566952627A0D90E009C5FCB /* AppDelegate.swift */,
 				6566952827A0D90E009C5FCB /* SceneDelegate.swift */,
-				6566952F27A0D913009C5FCB /* Assets.xcassets */,
-				6566953127A0D913009C5FCB /* LaunchScreen.storyboard */,
 				6566953427A0D913009C5FCB /* Info.plist */,
 			);
 			path = Checklists;
@@ -94,8 +102,8 @@
 		6566953B27A0E6CD009C5FCB /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				6566953C27A0EB73009C5FCB /* ChecklistItem.swift */,
 				65A09D0C27A38A0C0014DEC4 /* Checklist.swift */,
+				6566953C27A0EB73009C5FCB /* ChecklistItem.swift */,
 				65A09D1027A3B7B30014DEC4 /* DataModel.swift */,
 			);
 			path = Models;

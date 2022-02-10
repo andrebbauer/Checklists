@@ -3,6 +3,7 @@ import UIKit
 class ChecklistViewController: UITableViewController, ItemDetailViewControllerDelegate {
     
     var checklist: Checklist!
+    let cellIdentifier = "ChecklistItem"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -16,7 +17,7 @@ class ChecklistViewController: UITableViewController, ItemDetailViewControllerDe
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ChecklistItem", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         
         let item = checklist.items[indexPath.row]
         

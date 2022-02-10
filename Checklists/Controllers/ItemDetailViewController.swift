@@ -9,6 +9,8 @@ protocol ItemDetailViewControllerDelegate: AnyObject {
 class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var doneBarButton: UIBarButtonItem!
+    @IBOutlet weak var shouldRemindSwitch: UISwitch!
+    @IBOutlet weak var datePicker: UIDatePicker!
     
     weak var delegate: ItemDetailViewControllerDelegate?
     var itemToEdit: ChecklistItem?
@@ -21,6 +23,8 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
         if let itemToEdit = itemToEdit {
             title = "Edit Item"
             textField.text = itemToEdit.text
+            shouldRemindSwitch.isOn = itemToEdit.shouldRemind
+            datePicker.date = itemToEdit.dueDate
         }
     }
     
@@ -39,10 +43,17 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     @IBAction func done() {
         if let item = itemToEdit {
             item.text = textField.text!
+            item.shouldRemind = shouldRemindSwitch.isOn
+            item.dueDate = datePicker.date
+            item.scheduleNotification()
             delegate?.itemDetailViewController(self, didFinishEditing: item)
         } else {
-            let item = ChecklistItem(text: textField.text!)
-            
+            let item = ChecklistItem(
+                text: textField.text!,
+                checked: false,
+                shouldRemind: shouldRemindSwitch.isOn,
+                dueDate: datePicker.date)
+            item.scheduleNotification()
             delegate?.itemDetailViewController(self, didFinishAdding: item)
         }
     }
@@ -54,5 +65,16 @@ class ItemDetailViewController: UITableViewController, UITextFieldDelegate {
     
     @IBAction func textFieldEditChanged(_ sender: Any) {
         doneBarButton.isEnabled = !textField.text!.isEmpty
+    }
+    
+    @IBAction func shouldRemindToggled(_ switchControl: UISwitch) {
+        textField.resignFirstResponder()
+        
+        if switchControl.isOn {
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert, .sound]) { _ , _ in
+                
+            }
+        }
     }
 }
